@@ -35,7 +35,7 @@ router.post("/", authMiddleware, async (req, res) => {
         content, 
         url
     });
-    console.log(createPost, "작성완료")
+    // console.log(createPost, "작성완료")
 
     // await createPost.save();
 
