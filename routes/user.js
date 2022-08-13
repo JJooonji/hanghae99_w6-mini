@@ -49,7 +49,7 @@ router.post("/signup", async (req, res) => {
 
     await User.create({ nickname, password });
 
-    res.send(201).send({});
+    res.status(201).send({});
 
 });
 
