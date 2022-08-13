@@ -36,7 +36,7 @@ router.post("/:postId", authMiddleware, async(req, res) => {
         res.json({message: "댓글을 생성하였습니다."});
     } catch(error) {
         const message = `${req.method} ${req.originalUrl} : ${error.message}`;
-        consoel.log(message);
+        console.log(message);
         res.status(400).json({ message });
     }   
 });
@@ -47,8 +47,8 @@ router.get("/:postId", async (req, res) => {
 		const {postId} = req.params;
 		//postId가 일치하는 게시글을 되도록 날짜 내림차순으로 불러와 찾아봄
 		const posts = await Post.findAll({
-			where: { id : postId },
-			order: [["createdAt", "DESC]"]],
+			where: { postId },
+			order: [["createdAt", "DESC"]],
 		});
 		//찾았는데 없으면 댓글을 쓸수 없음
 		if (!posts.length) {
@@ -75,7 +75,7 @@ router.get("/:postId", async (req, res) => {
 		res.json({data: data});
 	}catch(error) {
 		const message = `${req.method} ${req.originalUrl} : ${error.message}`;
-    consoel.log(message);
+    console.log(message);
     res.status(400).json({ message });
 	}
 });
@@ -109,7 +109,7 @@ router.put("/:commentId", authMiddleware, async (req,res) => {
 			res.json({message: "댓글을 수정하였습니다."});
 	}catch(error) {
 		const message = `${req.method} ${req.originalUrl} : ${error.message}`;
-    consoel.log(message);
+    console.log(message);
     res.status(400).json({ message });
 	}
 });
@@ -134,7 +134,7 @@ router.delete("/:commentId", authMiddleware, async (req, res) => {
 		}		
 	}catch(error) {
 		const message = `${req.method} ${req.originalUrl} : ${error.message}`;
-    consoel.log(message);
+    console.log(message);
     res.status(400).json({ message });
 	}
 });
