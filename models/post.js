@@ -22,7 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     userId: DataTypes.INTEGER,
     title: DataTypes.STRING,
-    nickname: DataTypes.STRING,
+    nickname: {
+      type: DataTypes.STRING,
+      unique: true},
     content: DataTypes.STRING
   }, {
     sequelize,
