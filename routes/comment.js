@@ -43,42 +43,7 @@ router.post("/:postId", authMiddleware, async (req, res) => {
 
 //댓글 목록 조회 with GET("/api/comments/_postId")
 router.get("/:postId", async (req, res) => {
-  try {
-    const { postId } = req.params;
-    //postId가 일치하는 게시글을 되도록 날짜 내림차순으로 불러와 찾아봄
-    const posts = await Post.findAll({
-      where: { postId },
-      order: [["createdAt", "DESC"]],
-    });
-    //찾았는데 없으면 댓글을 쓸수 없음
-    if (!posts.length) {
-      return res.json({ message: "해당 게시글이 없습니다." });
-    }
-    const allCommentInfo = await Comment.findAll({
-      where: { postId },
-      order: [["createdAt", "DESC"]],
-    });
 
-	res.json({ 
-		allCommentInfo,
-	})
-
-    // const data = [];
-    // //이 게시물의 댓글을 하나씩 돌면서 ,응답할 배열에 넣어서 반환 합니다.
-    // for (let i = 0; i < allCommentInfo.length; i++) {
-    //   data.push({
-    //     commentId: allCommentInfo[i].toString(),
-    //     userId: allCommentInfo[i].userId,
-    //     nickname: allCommentInfo[i].nickname,
-    //     comment: allCommentInfo[i].comment,
-    //     createdAt: allCommentInfo[i].createdAt,
-    //     updatedAt: allCommentInfo[i].updatedAt,
-    //   });
-    // }
-    // //완성된 배열은 명세서와 동일한 모양으로 나오도록 가공하여 , Res.json으로 응답
-    // res.json({ data: data });
-  } catch (error) {
-    const message = `${req.method} ${req.originalUrl} : ${error.message}`;
     console.log(message);
     res.status(400).json({ message });
   }
@@ -88,31 +53,7 @@ router.put("/:commentId", authMiddleware, async (req, res) => {
   try {
     const { commentId } = req.params;
 
-    const { commnet } = req.body;
 
-    const comments = await Comment.findOne({ where: { commnetId } });
-    //댓글이 없으면 수정 안됨
-    if (!comment) {
-      res.json({ message: "댓글 내용을 입력해주세요." });
-    }
-    //미들웨어를 통해서 댓글 작성자인지 확인함
-    const { user } = await res.locals;
-    if (user.nickname != comments.nickname) {
-      return res.json({ message: "수정 권한이 없습니다." });
-    }
-    //해당 댓글을 업데이트 합니다.
-    await Comment.update(
-      { comment },
-      {
-        where: {
-          commentId,
-        },
-      }
-    );
-    //수정이 끝났으므로 메세지를 res함
-    res.json({ message: "댓글을 수정하였습니다." });
-  } catch (error) {
-    const message = `${req.method} ${req.originalUrl} : ${error.message}`;
     console.log(message);
     res.status(400).json({ message });
   }
