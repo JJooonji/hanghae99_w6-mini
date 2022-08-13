@@ -29,11 +29,13 @@ router.post("/signup", async (req, res) => {
     });
   }
 
+
   const existUsers = await User.findAll({
     where: {
       [Op.or]: { nickname },
     },
   });
+
 
   if (existUsers.length) {
     return res.status(400).send({
