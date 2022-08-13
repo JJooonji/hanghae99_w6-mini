@@ -1,5 +1,5 @@
 const express = require("express")
-const { Post } = require("../models")
+const { Post, User } = require("../models")
 const authMiddleware = require("../middlewares/auth-middleware")
 const router = express.Router();
 
@@ -13,31 +13,23 @@ router.get("/", async (req, res) => {
 
 
 //게시글 생성
-router.post("/", authMiddleware, async (req, res) => {
-    const { userId } = res.locals.user
+router.post("/posts", authMiddleware, async (req, res) => {
+    const { user } = res.locals
     
-    // console.log(userId, "아이디확인")
+    // console.log(user, "아이디확인")
 
     const { title, content, url } = req.body;
-    console.log(title, "제목확인")
-    // console.log(nickname, "닉네임확인")
-    console.log(content, "내용확인")
-    console.log(url, "주소확인")
 
-    if(!userId) {
-        return res.status(400).send({ errorMessage: "접근권한이 없습니다." })
-    } else if(!content || !title) {
+    if(!content || !title) {
         return res.send({message: "제목 또는 내용을 작성해주세요."})
     }
     const createPost = await Post.create({
-        userId,
+        userId:user.userId,
+        nickname:user.nickname,
         title, 
         content, 
         url
     });
-    // console.log(createPost, "작성완료")
-
-    // await createPost.save();
 
     res.status(201).send({createPost})
 })
