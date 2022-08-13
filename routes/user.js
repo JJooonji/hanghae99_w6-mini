@@ -61,25 +61,27 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     const { nickname, password } = req.body;
-    const expires = new Date();
-
-    expires.setMinutes(expires.getMinutes() + 60);
 
     const user = await User.findOne({ where: { nickname, password } });
 
     if (!user) {
-        res.status(400).send({
+        return res.status(400).send({
             errorMessage: "아이디 또는 패스워드가 잘못됐습니다.",
         });
-        return;
     }
+
+    const expires = new Date();
+    expires.setMinutes(expires.getMinutes() + 60);
+
 
     const token = jwt.sign({ userId: user.userId }, "secret-key");
 
     res.cookie('token', token, { expires: expires });
 
     console.log("로그인 완료");
-    return res.status(200).end();
+    return res.status(200).json({ token });
 });
+
+// 
 
 module.exports = router;
