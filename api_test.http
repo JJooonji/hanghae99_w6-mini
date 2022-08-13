@@ -1,0 +1,55 @@
+
+### 회원가입
+POST http://localhost:3000/api/signup
+Content-Type: application/json
+
+{  
+    "nickname": "sparta1",  
+    "password": "1234",  
+    "confirmPassword": "1234"
+}
+    
+### 로그인
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{  
+    "nickname": "sparta",
+    "password": "1234"
+}
+
+
+### 게시글 작성 셍성 
+POST http://localhost:3000/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIyNTA3M30.NHhA1scBOGQhFQOl2m2gG44uuZacK85ZLw6O6_RQsi8
+
+{
+    "title": "키키모",
+    "content": "코코모",
+    "url": "url"
+}
+    
+    
+### 게시글 모두 조회 불러오는 (주소창)
+GET http://localhost:3000/api
+
+
+
+### 게시글 수정 
+PUT http://localhost:3000/api/posts/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIxNzkyOX0.CMfkJwpvtz6AmnlgQBS8tzA2JroWImIKaRXoA5tlfWA
+
+{
+    "title": "키키모",
+    "content": "코코모",
+    "url": "url"
+}
+
+### 게시글 삭제
+DELETE http://localhost:3000/api/posts/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIxODI1M30.FDjps3W7tCIStsqhQLtyjITDt1W5l9L1u2pKlO-V0cs
+
+
