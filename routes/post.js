@@ -39,10 +39,12 @@ router.put("/:postId", async (req, res) => {
 router.delete("/:postId", async (req, res) => {
     const { postId } = req.params;
     
-    await Post.destroy({where : {postId}});
-    await Comment.destroy({where: {commentId}})
+    const removePost = await Post.destroy({where : {postId}});
+    if(removePost) {
+        await Comment.destroy({where: {postId: req.params.postId}})
+    }
 
-    res.status(201).send({message: "게시글이 삭제되었습니다."})
+    res.status(201).json({postId: parseInt(req.params.postId, 10)})
 })
 
 module.exports = router;
