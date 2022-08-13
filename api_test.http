@@ -14,13 +14,13 @@ POST http://localhost:3000/api/login
 Content-Type: application/json
 
 {  
-    "nickname": "aaaa",
+    "nickname": "aaaa2",
     "password": "1234"
 }
 
 
-### 게시글 작성 셍성 
-POST http://localhost:3000/posts
+### 게시글 작성 생성 
+POST http://localhost:3000/api/posts
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIyNTA3M30.NHhA1scBOGQhFQOl2m2gG44uuZacK85ZLw6O6_RQsi8
 
