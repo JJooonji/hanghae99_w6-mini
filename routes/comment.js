@@ -8,9 +8,9 @@ const authMiddleware = require("../middlewares/auth-middleware");
 
 //api 시작
 //댓글 작성 api with post('/api/comments/_postId')
-router.post("/:_post", authMiddleware, async(req, res) => {
+router.post("/:postId", authMiddleware, async(req, res) => {
     try{
-        const { _postId } = req.params; //_postId를 사용하겠다고 변수선언
+        const { postId } = req.params; //_postId를 사용하겠다고 변수선언
         //request body 에 적힌 변수들을 기록해둡니다.
         const { comment } = req.body;
 
@@ -19,7 +19,7 @@ router.post("/:_post", authMiddleware, async(req, res) => {
             return res.json({ message: "댓글 내용을 입력해 주세요." });
         }
         //_postId와 일치하는 데이터를 DB에서 모두 찾습니다.
-        const posts = await Post.findAll({ where: {_id:_postId}});
+        const posts = await Post.findAll({ where: { postId }});
         
         if(!posts) {
             return res.json({message: "해당 게시글이 없습니다."});
@@ -28,7 +28,7 @@ router.post("/:_post", authMiddleware, async(req, res) => {
         const { user } = await res.locals;
         //이 comment는 _postId "게시글" 에남겨지는 '댓글'입니다.
         await Comment.create({
-            _postId,
+            postId,
             userId: user.userId,
             nickname: user.nickname,
             comment,
@@ -42,12 +42,12 @@ router.post("/:_post", authMiddleware, async(req, res) => {
 });
 
 //댓글 목록 조회 with GET("/api/comments/_postId")
-router.get("/:_postId", async (req, res) => {
+router.get("/:postId", async (req, res) => {
 	try {
-		const {_postId} = req.params;
+		const {postId} = req.params;
 		//postId가 일치하는 게시글을 되도록 날짜 내림차순으로 불러와 찾아봄
 		const posts = await Post.findAll({
-			where: { _id : _postId },
+			where: { id : postId },
 			order: [["createdAt", "DESC]"]],
 		});
 		//찾았는데 없으면 댓글을 쓸수 없음
@@ -55,7 +55,7 @@ router.get("/:_postId", async (req, res) => {
 			return res.json({ message: "해당 게시글이 없습니다." });
 		}
 		const allCommentInfo = await Comment.findAll({
-			where: { _postId },
+			where: { postId },
 			order: [["createdAt", "DESC"]],
 		});
 
@@ -63,7 +63,7 @@ router.get("/:_postId", async (req, res) => {
 		//이 게시물의 댓글을 하나씩 돌면서 ,응답할 배열에 넣어서 반환 합니다.
 		for (let i = 0; i < allCommentInfo.length; i++){
 			data.push({
-				commentId: allCommentInfo[i]._id.toString(),
+				commentId: allCommentInfo[i].toString(),
 				userId: allCommentInfo[i].userId,
 				nickname: allCommentInfo[i].nickname,
 				comment: allCommentInfo[i].comment,
@@ -80,13 +80,13 @@ router.get("/:_postId", async (req, res) => {
 	}
 });
 //댓글 수정 api with put ('api/comments/_commentId')
-router.put("/:_commentId", authMiddleware, async (req,res) => {
+router.put("/:commentId", authMiddleware, async (req,res) => {
 	try{
-		const {_commentId} = req.params;
+		const {commentId} = req.params;
 
 		const {commnet} = req.body;
 
-		const comments = await Comment.findOne({where: { _id:_commnetId } });
+		const comments = await Comment.findOne({where: { id:commnetId } });
 		//댓글이 없으면 수정 안됨
 		if(!comment) {
 			res.json({message: "댓글 내용을 입력해주세요."});
@@ -101,7 +101,7 @@ router.put("/:_commentId", authMiddleware, async (req,res) => {
 			{comment},
 			{
 				where: {
-					_id:_commentId,
+					commentId,
 				},
 			 }
 			);
@@ -116,9 +116,9 @@ router.put("/:_commentId", authMiddleware, async (req,res) => {
 //게시글 삭제 API with delete ("/api/comment")
 router.delete("/:commentId", authMiddleware, async (req, res) => {
 	try{
-		const { _commentId } = req.params;
+		const { commentId } = req.params;
 
-		const comments = await Comment.findOne({ where: {_id:_commentId} });
+		const comments = await Comment.findOne({ where: { commentId } });
 		//찾은게 없으면 삭제할수 없음.
 		if (!comments) {
 			return res.json({ message: "해당 댓글이 없습니다."});
@@ -129,7 +129,7 @@ router.delete("/:commentId", authMiddleware, async (req, res) => {
 		if (user.nickname != comments.nickname) {
 			res.json({message: "삭제 권한이 없습니다."})
 		}else {
-			await Commnet.destroy({where: {_id:_commentId}});
+			await Commnet.destroy({where: {commentId}});
 			return res.json({message: "댓글을 삭제하였습니다."});
 		}		
 	}catch(error) {
