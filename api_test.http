@@ -4,7 +4,7 @@ POST http://localhost:3000/api/signup
 Content-Type: application/json
 
 {  
-    "nickname": "sparta1",  
+    "nickname": "aaaa2",  
     "password": "1234",  
     "confirmPassword": "1234"
 }
@@ -14,7 +14,7 @@ POST http://localhost:3000/api/login
 Content-Type: application/json
 
 {  
-    "nickname": "sparta",
+    "nickname": "aaaa",
     "password": "1234"
 }
 
