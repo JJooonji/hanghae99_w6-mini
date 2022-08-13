@@ -18,6 +18,11 @@ Content-Type: application/json
     "password": "1234"
 }
 
+### 로그아웃
+POST http://localhost:3000/api/logout
+Content-Type: application/json
+
+
 
 ### 게시글 작성 생성 
 POST http://localhost:3000/api/posts
@@ -25,8 +30,8 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIyNTA3M30.NHhA1scBOGQhFQOl2m2gG44uuZacK85ZLw6O6_RQsi8
 
 {
-    "title": "키키모",
-    "content": "코코모",
+    "title": "123",
+    "content": "123",
     "url": "url"
 }
     
@@ -37,19 +42,45 @@ GET http://localhost:3000/api
 
 
 ### 게시글 수정 
-PUT http://localhost:3000/api/posts/1
+PUT http://localhost:3000/api/posts/3
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIxNzkyOX0.CMfkJwpvtz6AmnlgQBS8tzA2JroWImIKaRXoA5tlfWA
 
 {
-    "title": "키키모",
-    "content": "코코모",
+    "title": "수정",
+    "content": "수정",
     "url": "url"
 }
 
 ### 게시글 삭제
-DELETE http://localhost:3000/api/posts/1
+DELETE http://localhost:3000/api/posts/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIxODI1M30.FDjps3W7tCIStsqhQLtyjITDt1W5l9L1u2pKlO-V0cs
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIxODI1M30.FDjps3W7tCIStsqhQLtyjITDt1W5l9L1u2pKlO-V0cs
 
 
+### 특정 게시글에 댓글 작성   // 사용중인 유저로 진행 필요
+POST http://localhost:3000/api/comments/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIxOTk1OH0.UJKgGRsQss0QJAT7PT8a_x6P1_7WluC6wsPPdIiTW-M
+
+{
+    "comment": "댓글테스트123"
+}
+    
+### 특정 게시글의 댓글 조회
+GET http://localhost:3000/api/comments/1
+
+### 댓글 수정
+PUT http://localhost:3000/api/comments/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIxMzg0OH0.kEPEuR9N5xZVVCHYXOHDCJqwoV9R1Welv5ilvUgxJm8
+
+{ 
+    "comment": "수정된 댓글입니다."
+}
+
+
+### 댓글 삭제 
+DELETE http://localhost:3000/api/comments/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTY2MDIxMzg0OH0.kEPEuR9N5xZVVCHYXOHDCJqwoV9R1Welv5ilvUgxJm8

@@ -58,21 +58,9 @@ router.get("/:postId", async (req, res) => {
 			where: { postId },
 			order: [["createdAt", "DESC"]],
 		});
-
-		const data = [];
-		//이 게시물의 댓글을 하나씩 돌면서 ,응답할 배열에 넣어서 반환 합니다.
-		for (let i = 0; i < allCommentInfo.length; i++){
-			data.push({
-				commentId: allCommentInfo[i].toString(),
-				userId: allCommentInfo[i].userId,
-				nickname: allCommentInfo[i].nickname,
-				comment: allCommentInfo[i].comment,
-				createdAt: allCommentInfo[i].createdAt,
-				updatedAt: allCommentInfo[i].updatedAt,
-			});
-		}
-		//완성된 배열은 명세서와 동일한 모양으로 나오도록 가공하여 , Res.json으로 응답
-		res.json({data: data});
+		res.json({
+			allCommentInfo,
+		})		
 	}catch(error) {
 		const message = `${req.method} ${req.originalUrl} : ${error.message}`;
     console.log(message);
@@ -84,9 +72,9 @@ router.put("/:commentId", authMiddleware, async (req,res) => {
 	try{
 		const {commentId} = req.params;
 
-		const {commnet} = req.body;
+		const {comment} = req.body;
 
-		const comments = await Comment.findOne({where: { commnetId } });
+		const comments = await Comment.findOne({where: { commentId } });
 		//댓글이 없으면 수정 안됨
 		if(!comment) {
 			res.json({message: "댓글 내용을 입력해주세요."});
@@ -101,7 +89,7 @@ router.put("/:commentId", authMiddleware, async (req,res) => {
 			{comment},
 			{
 				where: {
-					commentId,
+					commentId
 				},
 			 }
 			);
