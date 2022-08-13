@@ -24,6 +24,5 @@ sequelize
   });
 
 app.listen(port, () => {
-  console.log(port, "포트로 서버가 연결됨");
+  console.log(`listening at http://localhost:${port}`);
 });
-
