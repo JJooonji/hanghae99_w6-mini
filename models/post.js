@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     nickname: {
       type: DataTypes.STRING,
       unique: true},
-    content: DataTypes.STRING
+    content: DataTypes.STRING,
+    url: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Post',
