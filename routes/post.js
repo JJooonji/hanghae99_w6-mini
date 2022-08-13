@@ -25,7 +25,7 @@ router.post("/", authMiddleware, async (req, res) => {
 
 //게시글 수정
 router.put("/:postId", async (req, res) => {
-    // const { user } = res.locals
+    const { user } = res.locals
     const { postId } = req.params;
     const { title, content, url } = req.body;
 
