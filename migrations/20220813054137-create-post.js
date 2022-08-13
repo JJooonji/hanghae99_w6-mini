@@ -15,8 +15,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       nickname: {
-        type: Sequelize.STRING,
-        unique: true
+        type: Sequelize.STRING
       },
       content: {
         type: Sequelize.STRING
