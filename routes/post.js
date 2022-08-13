@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/", authMiddleware, async (req, res) => {
     const { user } = res.locals
 
-    const { title, content, url } = req.body; //title, content, url r값만 입력
+    const { title, content, url } = req.body; //title, content, url값만 입력
 
     if(!content || !title) {//content 또는 title 값이 없으면!
         return res.send({message: "제목 또는 내용을 작성해주세요."})
@@ -23,9 +23,14 @@ router.post("/", authMiddleware, async (req, res) => {
     res.status(201).send({createPost})
 })
 
-
 //게시글 수정
+router.put("/:postId", async (req, res) => {
+    const { user } = res.locals
+    const { postId } = req.params;
+    const { title, content, url } = req.body;
 
+
+})
 
 
 //게시글 삭제
