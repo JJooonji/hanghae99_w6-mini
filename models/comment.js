@@ -22,9 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     postId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
-    nickname: {
-      type: DataTypes.STRING,
-      unique: true},
+    nickname: DataTypes.STRING,
     comment: DataTypes.STRING
   }, {
     sequelize,
