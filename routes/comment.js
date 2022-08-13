@@ -113,7 +113,7 @@ router.put("/:commentId", authMiddleware, async (req,res) => {
     res.status(400).json({ message });
 	}
 });
-//게시글 삭제 API with delete ("/api/comment")
+//댓글 삭제 API with delete ("/api/comment")
 router.delete("/:commentId", authMiddleware, async (req, res) => {
 	try{
 		const { commentId } = req.params;
@@ -129,7 +129,7 @@ router.delete("/:commentId", authMiddleware, async (req, res) => {
 		if (user.nickname != comments.nickname) {
 			res.json({message: "삭제 권한이 없습니다."})
 		}else {
-			await Commnet.destroy({where: {commentId}});
+			await Comment.destroy({where: {commentId}});
 			return res.json({message: "댓글을 삭제하였습니다."});
 		}		
 	}catch(error) {
