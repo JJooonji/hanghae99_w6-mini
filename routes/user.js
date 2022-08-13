@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
-const { User } = require("../models");
+const { User, Post } = require("../models");
 const router = express.Router();
 
 // 회원가입
@@ -29,13 +29,11 @@ router.post("/signup", async (req, res) => {
     });
   }
 
-
   const existUsers = await User.findAll({
     where: {
       [Op.or]: { nickname },
     },
   });
-
 
   if (existUsers.length) {
     return res.status(400).send({
@@ -77,5 +75,13 @@ router.post("/login", async (req, res) => {
 });
 
 //
+
+//게시글 전체 조회
+router.get("/", async (req, res) => {
+  const posts = await Post.findAll({
+      order : [["updatedAt", "DESC"]],//updatedAt으로 내림차순 정렬
+  });
+  res.send({ posts })
+});
 
 module.exports = router;
