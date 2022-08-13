@@ -86,7 +86,7 @@ router.put("/:commentId", authMiddleware, async (req,res) => {
 
 		const {commnet} = req.body;
 
-		const comments = await Comment.findOne({where: { id:commnetId } });
+		const comments = await Comment.findOne({where: { commnetId } });
 		//댓글이 없으면 수정 안됨
 		if(!comment) {
 			res.json({message: "댓글 내용을 입력해주세요."});
