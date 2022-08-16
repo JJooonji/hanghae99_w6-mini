@@ -9,12 +9,12 @@ module.exports = (req, res, next) => {
     const [authType, authToken] = (authorization || "").split(" ");
 
     // 전달받은 인증값이 Bearer로 시작하지 않으면 인증 실패
-    if (authType !== "Bearer") {
-      res.status(401).send({
-        errorMessage: "로그인 후 사용해주세요, Bearer가 아님",
-      });
-      return;
-    }
+    // if (authType !== "Bearer") {
+    //   res.status(401).send({
+    //     errorMessage: "로그인 후 사용해주세요, Bearer가 아님",
+    //   });
+    //   return;
+    // }
 
     // 뒤쪽 'authToken'을 우리 secretKey를 가지고 인증해보고 에러 없으면, user 정보를 토근으로 다음 next으로 넘겨줌
     jwt.verify(
