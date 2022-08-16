@@ -1,28 +1,29 @@
 const express = require("express");
 const { Post, User, Comment } = require("../models");
-const authMiddleware = require("../middlewares/auth-middleware");
+// const authMiddleware = require("../middlewares/auth-middleware");
 const router = express.Router();
 
 //게시글 생성
-router.post("/", authMiddleware, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const { user } = await res.locals;
-    const { title, content, url } = req.body;
+    // const { user } = await res.locals;
+    const { title, nickname, content, url } = req.body;
 
     if (!content || !title) {
       //content 또는 title 값이 없으면!
       return res.status(400).send({ message: "제목 또는 내용을 작성해주세요." });
     }
     await Post.create({
-      userId: user.userId, //user페이지에서 userId를 받아옴
-      nickname: user.nickname, //user 페이지에서 nickname을 받아서
+      // userId: user.userId, //user페이지에서 userId를 받아옴
+      // nickname: user.nickname, //user 페이지에서 nickname을 받아서
       title,
+      nickname,
       content,
       url,
     });
-    console.log(user.nickname, "닉네임확인!")
+    // console.log(user.nickname, "닉네임확인!")
     res.status(201).json({ data: {
-      nickname: user.nickname
+      nickname
     } });
     // res.status(201).json({ message: "게시글을 생성하였습니다." });
   } catch (error) {
@@ -32,7 +33,7 @@ router.post("/", authMiddleware, async (req, res) => {
 });
 
 //게시글 수정
-router.put("/:postId", authMiddleware, async (req, res) => {
+router.put("/:postId", async (req, res) => {
   try {
     const { postId } = req.params;
     const { title, content, url } = req.body;
@@ -61,7 +62,7 @@ router.put("/:postId", authMiddleware, async (req, res) => {
 });
 
 //게시글 삭제
-router.delete("/:postId", authMiddleware, async (req, res) => {
+router.delete("/:postId",  async (req, res) => {
   try {
     const { postId } = req.params;
 
