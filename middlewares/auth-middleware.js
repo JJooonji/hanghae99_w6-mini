@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 
 module.exports = (req, res, next) => {
-  try {
+  // try {
     // Client 요청의 cookies 객체 중 토큰을 authorization으로 읽어들여서, 공백을 기준으로 두 조각으로 나눔
     const authorization = req.cookies.token;
     const [authType, authToken] = (authorization || "").split(" ");
@@ -39,12 +39,12 @@ module.exports = (req, res, next) => {
     );
 
     // 에러 생기면 에러메세지
-  } catch (e) {
-    res.status(401).send({
-      errorMessage: "로그인 후 사용하세요",
-    });
-    return;
-  }
+  // } catch (e) {
+  //   res.status(401).send({
+  //     errorMessage: "로그인 후 사용하세요",
+  //   });
+  //   return;
+  // }
 };
 //   const { token } = req.cookies;
 //   console.log(token);
