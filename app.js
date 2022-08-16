@@ -6,7 +6,12 @@ const port = 3000;
 
 const router = require("./routes");
 
-app.use(cors());
+const corsOption = {
+  origin: true,
+  credentials: true,
+}
+
+app.use(cors(corsOption));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
