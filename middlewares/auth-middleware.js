@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
 
   if (!token) {
     res.status(401).send({
-      errorMessage: "로그인 후 사용하세요.",
+      errorMessage: "로그인 후 사용하세요.(1) 토큰 없음",
     });
     return;
   }
@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
     });
   } catch (error) {
     res.status(401).send({
-      errorMessage: "로그인 후 사용하세요.",
+      errorMessage: "로그인 후 사용하세요.(2) 토큰 검증 불가",
     });
     return;
   }
