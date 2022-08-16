@@ -49,6 +49,7 @@ router.post("/", async (req, res) => {
 //       return res.status(400).json({ message : "게시글 내용을 작성해주세요."})
 //     }
 
+
 //     // const { user } = await res.locals;
 //     // if (user.nickname !== changePost.nickname) {
 //     //   return res.json({ message: "수정 권한이 없습니다." });
@@ -71,6 +72,7 @@ router.post("/", async (req, res) => {
 //     if (!findPost) {
 //       return res.status(400).json({ message: "해당 게시글이 없습니다." });
 //     }
+
 
 //     // const { user } = await res.locals;
 //     // if (user.nickname !== findPost.nickname) {
