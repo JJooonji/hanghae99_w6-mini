@@ -7,7 +7,7 @@ const port = 3000;
 const router = require("./routes");
 
 const corsOption = {
-  origin: ["http://localhost:3000", "http://13.209.87.191"],
+  origin: true,
   credentials: true,
 }
 
