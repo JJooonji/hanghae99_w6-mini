@@ -78,7 +78,7 @@ router.post("/login", async (req, res) => {
     res.cookie("token", token, { expires: expires });
 
     console.log("로그인 완료");
-    res.status(200).json({ token });
+    res.status(200).json({ token , nickname });
   } catch (error) {
     const message = `${req.method} ${req.originalUrl} : ${error.message}`;
     console.log(message);
