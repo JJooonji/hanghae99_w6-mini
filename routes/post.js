@@ -17,13 +17,12 @@ router.post("/", authMiddleware, async (req, res) => {
       userId: user.userId, //user페이지에서 userId를 받아옴
       nickname: user.nickname, //user 페이지에서 nickname을 받아서
       title,
-      nickname,
       content,
       url,
     });
     console.log(user.nickname, "닉네임확인!")
     res.status(201).json({ data: {
-      nickname
+      nickname: user.nickname
     } });
     // res.status(201).json({ message: "게시글을 생성하였습니다." });
   } catch (error) {
