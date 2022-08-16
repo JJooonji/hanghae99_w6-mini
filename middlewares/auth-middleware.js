@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
     const [authType, authToken] = authorization.split(" ");
 
     // 전달받은 인증값이 Bearer로 시작하지 않으면 인증 실패
+
     if (authType !== "Bearer") {
       res.status(401).json({
         errorMessage: "로그인 후 사용해주세요, Bearer 토큰이 아님",
