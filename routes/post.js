@@ -49,10 +49,10 @@ router.put("/:postId", async (req, res) => {
       return res.status(400).json({ message : "게시글 내용을 작성해주세요."})
     }
 
-    const { user } = await res.locals;
-    if (user.nickname !== changePost.nickname) {
-      return res.json({ message: "수정 권한이 없습니다." });
-    }
+    // const { user } = await res.locals;
+    // if (user.nickname !== changePost.nickname) {
+    //   return res.json({ message: "수정 권한이 없습니다." });
+    // }
 
     await Post.update({ title, content, url }, { where: { postId } });
     res.status(201).json({ message: "게시글을 수정하였습니다." });
@@ -72,10 +72,10 @@ router.delete("/:postId",  async (req, res) => {
       return res.status(400).json({ message: "해당 게시글이 없습니다." });
     }
 
-    const { user } = await res.locals;
-    if (user.nickname !== findPost.nickname) {
-      return res.status(400).json({ message: "삭제 권한이 없습니다." });
-    }
+    // const { user } = await res.locals;
+    // if (user.nickname !== findPost.nickname) {
+    //   return res.status(400).json({ message: "삭제 권한이 없습니다." });
+    // }
 
     const removePost = await Post.destroy({where : {postId}});
     if(removePost) {
