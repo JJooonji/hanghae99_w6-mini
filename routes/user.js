@@ -76,10 +76,10 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ userId: user.userId }, "secret-key");
     console.log(token);
 
-    res.send("token", `Bearer ${token}`, {
-      maxAge: 300000, // 원활한 테스트를 위해 로그인 지속시간을 5분(300초)으로 두었다.
-      httpOnly: true,
-    });
+    // res.send("token", `Bearer ${token}`, {
+    //   maxAge: 300000, // 원활한 테스트를 위해 로그인 지속시간을 5분(300초)으로 두었다.
+    //   httpOnly: true,
+    // });
 
     // res.cookie("token", token, { expires: expires });
 
