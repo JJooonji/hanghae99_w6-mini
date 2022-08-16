@@ -5,7 +5,7 @@ const router = express.Router();
 
 //게시글 생성
 router.post("/", async (req, res) => {
-  try {
+  // try {
     // const { user } = await res.locals;
     const { title, nickname, content, url } = req.body;
 
@@ -22,14 +22,15 @@ router.post("/", async (req, res) => {
       url,
     });
     // console.log(user.nickname, "닉네임확인!")
-    res.status(201).json({ data: {
-      nickname
-    } });
+    res.status(201).send({ message: "게시글 작성이 완료되었습니다. "})
+    // .json({ data: {
+    //   nickname
+    // } });
     // res.status(201).json({ message: "게시글을 생성하였습니다." });
-  } catch (error) {
-    console.error(err);
-    res.status(400).send({ errorMessage: "error" });
-  }
+  // } catch (error) {
+  //   console.error(err);
+  //   res.status(400).send({ errorMessage: "error" });
+  // }
 });
 
 //게시글 수정
