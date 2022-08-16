@@ -70,12 +70,18 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    const expires = new Date();
-    expires.setMinutes(expires.getMinutes() + 60);
+    // const expires = new Date();
+    // expires.setMinutes(expires.getMinutes() + 60);
 
     const token = jwt.sign({ userId: user.userId }, "secret-key");
+    console.log(token);
 
-    res.cookie("token", token, { expires: expires });
+    res.cookie("token", `Bearer ${token}`, {
+      maxAge: 300000, // 원활한 테스트를 위해 로그인 지속시간을 5분(300초)으로 두었다.
+      httpOnly: true,
+    });
+
+    // res.cookie("token", token, { expires: expires });
 
     console.log("로그인 완료");
     res.status(200).json({ token , nickname });
