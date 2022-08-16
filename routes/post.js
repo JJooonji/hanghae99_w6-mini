@@ -20,7 +20,11 @@ router.post("/", authMiddleware, async (req, res) => {
       content,
       url,
     });
-    res.status(201).json({ message: "게시글을 생성하였습니다." });
+    console.log(user.nickname, "닉네임확인!")
+    res.status(201).json({ data: {
+      nickname: user.nickname
+    } });
+    // res.status(201).json({ message: "게시글을 생성하였습니다." });
   } catch (error) {
     console.error(err);
     res.status(400).send({ errorMessage: "error" });
