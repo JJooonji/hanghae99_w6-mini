@@ -5,9 +5,11 @@ const router = express.Router();
 
 //게시글 생성
 router.post("/", authMiddleware, async (req, res) => {
-  try {
+  // try {
     const { user } = await res.locals;
     const { title, content, url } = req.body;
+
+    console.log(user, "유저유저")
 
     if (!content || !title) {
       //content 또는 title 값이 없으면!
@@ -20,15 +22,16 @@ router.post("/", authMiddleware, async (req, res) => {
       content,
       url,
     });
+    console.log(user.userId, "닉네임확인!")
     console.log(user.nickname, "닉네임확인!")
     res.status(201).json({ data: {
       nickname: user.nickname
     } });
     // res.status(201).json({ message: "게시글을 생성하였습니다." });
-  } catch (error) {
-    console.error(err);
-    res.status(400).send({ errorMessage: "error" });
-  }
+  // } catch (error) {
+  //   // console.error(err);
+  //   res.status(400).send({ errorMessage: "error" });
+  // }
 });
 
 //게시글 수정
@@ -55,7 +58,7 @@ router.put("/:postId", authMiddleware, async (req, res) => {
     await Post.update({ title, content, url }, { where: { postId } });
     res.status(201).json({ message: "게시글을 수정하였습니다." });
   } catch (error) {
-    console.error(err);
+    // console.error(err);
     res.status(400).send({ errorMessage: "error" });
   }
 });
@@ -81,7 +84,7 @@ router.delete("/:postId", authMiddleware, async (req, res) => {
         res.status(200).json({ postId, message: "게시글을 삭제하였습니다."  });
     }
   } catch (error) {
-    console.error(err);
+    // console.error(err);
     res.status(400).send({ errorMessage: "error" });
   }
 });
