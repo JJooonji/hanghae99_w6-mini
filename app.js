@@ -6,7 +6,12 @@ const port = 3000;
 
 const router = require("./routes");
 
-app.use(cors());
+const corsOption = {
+  origin: ["http://localhost:3000", "http://13.209.87.191"],
+  credentials: true,
+}
+
+app.use(cors(corsOption));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
