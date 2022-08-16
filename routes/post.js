@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/", authMiddleware, async (req, res) => {
   try {
     const { user } = await res.locals;
-    const { title, nickname, content, url } = req.body;
+    const { title, content, url } = req.body;
 
     if (!content || !title) {
       //content 또는 title 값이 없으면!
