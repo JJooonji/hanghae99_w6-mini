@@ -34,7 +34,7 @@ router.post("/:postId", authMiddleware, async(req, res) => {
             nickname: user.nickname,
             comment,
         });
-        res.status(201).json({ data: {nickname:user.nickname,userId:user.userId, postId, comment , commnetId:comment.commentId }, message: "댓글이 생성되었습니다." });
+        res.status(201).json({ data: { nickname:user.nickname,userId:user.userId, postId, comment , commentId:comment.commentId }, message: "댓글이 생성되었습니다." });
     } catch(error) {
         const message = `${req.method} ${req.originalUrl} : ${error.message}`;
         console.log(message);
