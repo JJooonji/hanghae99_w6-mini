@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
-const { User, Post } = require("../models");
+const { User, Post, Comment } = require("../models");
 const router = express.Router();
 
 // 회원가입
