@@ -31,7 +31,7 @@ router.post("/:postId", authMiddleware, async(req, res) => {
             postId,
             userId: user.userId,
             nickname: user.nickname,
-            comment,
+            comment
         });
 
         res.status(201).json({ data: { 
@@ -40,9 +40,9 @@ router.post("/:postId", authMiddleware, async(req, res) => {
 			postId, 
 			comment, 
 			commentId:creatComment.commentId,
-			createdAt,
-			updatedAt
-	 }, 
+			createdAt:creatComment.createdAt,
+			updatedAt:creatComment.updatedAt
+	}, 
 			message: "댓글이 생성되었습니다." });
 
     } catch(error) {
