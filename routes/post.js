@@ -1,9 +1,10 @@
 const express = require("express");
 const { Post, User, Comment } = require("../models");
+const authMiddleware = require("../middlewares/auth-middleware")
 const router = express.Router();
 
 //게시글 생성
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     const { user } = await res.locals;
     const { title, content, url } = req.body;
@@ -33,7 +34,7 @@ router.post("/", async (req, res) => {
 });
 
 //게시글 수정
-router.put("/:postId", async (req, res) => {
+router.put("/:postId",authMiddleware, async (req, res) => {
   try {
     const { postId } = req.params;
     const { title, content, url } = req.body;
@@ -65,7 +66,7 @@ router.put("/:postId", async (req, res) => {
 });
 
 //게시글 삭제
-router.delete("/:postId",  async (req, res) => {
+router.delete("/:postId", authMiddleware, async (req, res) => {
   try {
     const { postId } = req.params;
 

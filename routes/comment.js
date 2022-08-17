@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-
+const authMiddleware = require("../middlewares/auth-middleware")
 const { Comment } = require("../models");
 const { Post } = require("../models");
 
 
 //api 시작
 //댓글 작성 api with post('/api/comments/postId')
-router.post("/:postId",  async(req, res) => {
+router.post("/:postId", authMiddleware, async(req, res) => {
     try{
         const { postId } = req.params; //_postId를 사용하겠다고 변수선언
         //request body 에 적힌 변수들을 기록해둡니다.
@@ -79,7 +79,7 @@ router.post("/:postId",  async(req, res) => {
 // 	}
 // });
 //댓글 수정 api with put ('api/comments/_commentId')
-router.put("/:commentId", async (req,res) => {
+router.put("/:commentId", authMiddleware, async (req,res) => {
 	try{
 		const {commentId} = req.params;
 
@@ -113,7 +113,7 @@ router.put("/:commentId", async (req,res) => {
 	}
 });
 //댓글 삭제 API with delete ("/api/comment")
-router.delete("/:commentId",  async (req, res) => {
+router.delete("/:commentId", authMiddleware, async (req, res) => {
 	try{
 		const { commentId } = req.params;
 
