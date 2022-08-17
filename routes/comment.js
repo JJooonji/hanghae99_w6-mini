@@ -39,7 +39,10 @@ router.post("/:postId", authMiddleware, async(req, res) => {
 			userId:user.userId, 
 			postId, 
 			comment, 
-			commentId:creatComment.commentId }, 
+			commentId:creatComment.commentId,
+			createdAt,
+			updatedAt
+	 }, 
 			message: "댓글이 생성되었습니다." });
 
     } catch(error) {
