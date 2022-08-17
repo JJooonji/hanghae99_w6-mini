@@ -9,14 +9,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
+        onDelete: 'cascade',
       },
       postId: {
         type: Sequelize.INTEGER,
-        references: {//posts의 postId와 관계를 맺어줌.
-          model: "Posts",
-          key: "postId"
-        }
+        references: {
+          model: 'Posts',
+          key: 'postId',
+        },
+        onDelete: 'cascade',
       },
       createdAt: {
         allowNull: false,
