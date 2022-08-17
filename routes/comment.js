@@ -29,11 +29,12 @@ router.post("/:postId", authMiddleware, async(req, res) => {
         //이 comment는 postId "게시글" 에남겨지는 '댓글'입니다.
         await Comment.create({
             postId,
+			commentId: comment.commnetId,
             userId: user.userId,
             nickname: user.nickname,
             comment,
         });
-        res.status(201).json({message: "댓글을 생성하였습니다."});
+        res.status(201).json({ data: {nickname:user.nickname,userId:user.userId, postId, comment , commnetId:comment.commentId }, message: "댓글이 생성되었습니다." });
     } catch(error) {
         const message = `${req.method} ${req.originalUrl} : ${error.message}`;
         console.log(message);
@@ -74,7 +75,7 @@ router.put("/:commentId", authMiddleware, async (req,res) => {
 
 		const {comment} = req.body;
 
-		const comments = await Comment.findOne({where: { commentId } });
+		const comments = await Comment.findOne({ where: { commentId } });
 		//댓글이 없으면 수정 안됨
 		if(!comment) {
 			res.status(400).json({message: "댓글 내용을 작성해주세요."});
