@@ -27,19 +27,27 @@ router.post("/:postId", authMiddleware, async(req, res) => {
         //미들웨어를 거쳐 인증된 사용자 객체 user: 사용자 정보를 모두 담고 있음
         const { user } = await res.locals;
         //이 comment는 postId "게시글" 에남겨지는 '댓글'입니다.
-        await Comment.create({
+        const creatComment = await Comment.create({
             postId,
-			commentId: comment.commnetId,
             userId: user.userId,
             nickname: user.nickname,
             comment,
         });
-        res.status(201).json({ data: { nickname:user.nickname,userId:user.userId, postId, comment , commentId:comment.commentId }, message: "댓글이 생성되었습니다." });
+
+        res.status(201).json({ data: { 
+			nickname:user.nickname,
+			userId:user.userId, 
+			postId, 
+			comment, 
+			commentId:creatComment.commentId }, 
+			message: "댓글이 생성되었습니다." });
+
     } catch(error) {
         const message = `${req.method} ${req.originalUrl} : ${error.message}`;
         console.log(message);
         res.status(400).json({ message });
     }   
+	
 });
 
 //댓글 목록 조회 with GET("/api/comments/postId")
