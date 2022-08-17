@@ -4,11 +4,10 @@ const router = express.Router();
 const { Comment } = require("../models");
 const { Post } = require("../models");
 
-const authMiddleware = require("../middlewares/auth-middleware");
 
 //api 시작
 //댓글 작성 api with post('/api/comments/postId')
-router.post("/:postId", authMiddleware, async(req, res) => {
+router.post("/:postId",  async(req, res) => {
     try{
         const { postId } = req.params; //_postId를 사용하겠다고 변수선언
         //request body 에 적힌 변수들을 기록해둡니다.
@@ -36,7 +35,7 @@ router.post("/:postId", authMiddleware, async(req, res) => {
 
         res.status(201).json({ data: { 
 			nickname:user.nickname,
-			userId:user.userId, 
+			userId:user.userId,
 			postId, 
 			comment, 
 			commentId:creatComment.commentId,
@@ -53,34 +52,34 @@ router.post("/:postId", authMiddleware, async(req, res) => {
 	
 });
 
-//댓글 목록 조회 with GET("/api/comments/postId")
-router.get("/:postId", async (req, res) => {
-	try {
-		const {postId} = req.params;
-		//postId가 일치하는 게시글을 되도록 날짜 내림차순으로 불러와 찾아봄
-		const posts = await Post.findAll({
-			where: { postId },
-			order: [["updatedAt", "DESC"]],
-		});
-		//찾았는데 없으면 댓글을 쓸수 없음
-		if (!posts.length) {
-			return res.status(400).json({ message: "해당 게시글이 없습니다." });
-		}
-		const allCommentInfo = await Comment.findAll({
-			where: { postId },
-			order: [["updatedAt", "DESC"]],
-		});
-		res.json({
-			allCommentInfo,
-		})		
-	}catch(error) {
-		const message = `${req.method} ${req.originalUrl} : ${error.message}`;
-    console.log(message);
-    res.status(400).json({ message });
-	}
-});
+// //댓글 목록 조회 with GET("/api/comments/postId")
+// router.get("/:postId", async (req, res) => {
+// 	try {
+// 		const {postId} = req.params;
+// 		//postId가 일치하는 게시글을 되도록 날짜 내림차순으로 불러와 찾아봄
+// 		const posts = await Post.findAll({
+// 			where: { postId },
+// 			order: [["updatedAt", "DESC"]],
+// 		});
+// 		//찾았는데 없으면 댓글을 쓸수 없음
+// 		if (!posts.length) {
+// 			return res.status(400).json({ message: "해당 게시글이 없습니다." });
+// 		}
+// 		const allCommentInfo = await Comment.findAll({
+// 			where: { postId },
+// 			order: [["updatedAt", "DESC"]],
+// 		});
+// 		res.json({
+// 			allCommentInfo,
+// 		})		
+// 	}catch(error) {
+// 		const message = `${req.method} ${req.originalUrl} : ${error.message}`;
+//     console.log(message);
+//     res.status(400).json({ message });
+// 	}
+// });
 //댓글 수정 api with put ('api/comments/_commentId')
-router.put("/:commentId", authMiddleware, async (req,res) => {
+router.put("/:commentId", async (req,res) => {
 	try{
 		const {commentId} = req.params;
 
@@ -114,7 +113,7 @@ router.put("/:commentId", authMiddleware, async (req,res) => {
 	}
 });
 //댓글 삭제 API with delete ("/api/comment")
-router.delete("/:commentId", authMiddleware, async (req, res) => {
+router.delete("/:commentId",  async (req, res) => {
 	try{
 		const { commentId } = req.params;
 

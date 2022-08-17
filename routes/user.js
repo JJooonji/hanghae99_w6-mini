@@ -125,4 +125,31 @@ router.get("/posts/:postId", async (req, res) => {
   
 })
 
+//댓글 목록 조회 with GET("/api/comments/postId")
+router.get("/comments/:postId", async (req, res) => {
+	try {
+		const {postId} = req.params;
+		//postId가 일치하는 게시글을 되도록 날짜 내림차순으로 불러와 찾아봄
+		const posts = await Post.findAll({
+			where: { postId },
+			order: [["updatedAt", "DESC"]],
+		});
+		//찾았는데 없으면 댓글을 쓸수 없음
+		if (!posts.length) {
+			return res.status(400).json({ message: "해당 게시글이 없습니다." });
+		}
+		const allCommentInfo = await Comment.findAll({
+			where: { postId },
+			order: [["updatedAt", "DESC"]],
+		});
+		res.json({
+			allCommentInfo,
+		})		
+	}catch(error) {
+		const message = `${req.method} ${req.originalUrl} : ${error.message}`;
+    console.log(message);
+    res.status(400).json({ message });
+	}
+});
+
 module.exports = router;
