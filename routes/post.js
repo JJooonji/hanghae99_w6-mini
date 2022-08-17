@@ -33,17 +33,6 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
-// //게시글 상세 조회
-// router.get("/posts/:postId", async (req, res) => {
-//   const { postId } = req.params;
-
-//   const posts = await Post.findOne({where : {postId}});
-
-//   if(!posts) {
-//     res.status(400).send({})
-//   } res.json({ posts })
-// })
-
 //게시글 수정
 router.put("/:postId", authMiddleware, async (req, res) => {
   try {
