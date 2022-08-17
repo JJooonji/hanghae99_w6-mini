@@ -75,7 +75,7 @@ router.delete("/:postId",  async (req, res) => {
     }
 
     const { user } = await res.locals;
-    if (user.nickname != changePost.nickname) {
+    if (user.nickname != findPost.nickname) {
       return res.status(400).json({ message: "삭제 권한이 없습니다." });
     }
 
