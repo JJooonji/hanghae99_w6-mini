@@ -1,10 +1,9 @@
 const express = require("express");
 const { Post, User, Comment } = require("../models");
-const authMiddleware = require("../middlewares/auth-middleware");
 const router = express.Router();
 
 //게시글 생성
-router.post("/", authMiddleware, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { user } = await res.locals;
     const { title, content, url } = req.body;
@@ -34,7 +33,7 @@ router.post("/", authMiddleware, async (req, res) => {
 });
 
 //게시글 수정
-router.put("/:postId", authMiddleware, async (req, res) => {
+router.put("/:postId", async (req, res) => {
   try {
     const { postId } = req.params;
     const { title, content, url } = req.body;
@@ -49,8 +48,11 @@ router.put("/:postId", authMiddleware, async (req, res) => {
       return res.status(400).json({ message : "게시글 내용을 작성해주세요."})
     }
 
+
     const { user } = await res.locals;
-    if (!user) {
+
+    console.log(user, "닉네임..")
+    if (user.nickname != changePost.nickname) {
       return res.status(400).json({ message: "수정 권한이 없습니다." });
     }
 
@@ -63,7 +65,7 @@ router.put("/:postId", authMiddleware, async (req, res) => {
 });
 
 //게시글 삭제
-router.delete("/:postId", authMiddleware, async (req, res) => {
+router.delete("/:postId",  async (req, res) => {
   try {
     const { postId } = req.params;
 

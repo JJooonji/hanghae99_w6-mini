@@ -7,7 +7,7 @@ const postRouter = require('./post');
 const userRouter = require('./user');
 
 router.use('/comments', authMiddleware, commentRouter);
-router.use('/posts', authMiddleware, postRouter);
+router.use('/posts',authMiddleware, postRouter);
 router.use('/', userRouter);
 
 module.exports = router;

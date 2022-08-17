@@ -114,13 +114,15 @@ router.get("/", async (req, res) => {
 
 //게시글 상세 조회
 router.get("/posts/:postId", async (req, res) => {
-  const { postId } = req.params;
+    const { postId } = req.params;
 
   const posts = await Post.findOne({where : {postId}});
 
   if(!posts) {
-    res.status(400).send({})
-  } res.json({ posts })
+    return res.status(400).send({message: "해당 게시글이 없습니다."})
+  } 
+  res.status(200).json({ posts })
+  
 })
 
 module.exports = router;
