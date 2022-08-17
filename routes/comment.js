@@ -36,7 +36,7 @@ router.post("/:postId", authMiddleware, async(req, res) => {
 
         res.status(201).json({ data: { 
 			nickname:user.nickname,
-			userId:user.userId, 
+			userId:user.userId,
 			postId, 
 			comment, 
 			commentId:creatComment.commentId,
