@@ -112,4 +112,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+//게시글 상세 조회
+router.get("/posts/:postId", async (req, res) => {
+  const { postId } = req.params;
+
+  const posts = await Post.findOne({where : {postId}});
+
+  if(!posts) {
+    res.status(400).send({})
+  } res.json({ posts })
+})
+
 module.exports = router;
