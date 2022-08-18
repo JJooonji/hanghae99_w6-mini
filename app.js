@@ -7,7 +7,7 @@ const port = 3000;
 const router = require("./routes");
 
 const corsOption = {
-  origin: ['http://getoldcar-seven.vercel.app/','http://getoldcar-c1194oq32-moduri.vercel.app/'],
+  origin: ['http://getoldcar-c1194oq32-moduri.vercel.app/'],
   credentials: true,
 }
 
