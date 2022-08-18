@@ -7,7 +7,7 @@ const port = 3000;
 const router = require("./routes");
 
 const corsOption = {
-  origin: 'http://hanghae99miniprj.s3-website.ap-northeast-2.amazonaws.com',
+  origin: ['http://getoldcar-seven.vercel.app/','http://getoldcar-c1194oq32-moduri.vercel.app/'],
   credentials: true,
 }
 
