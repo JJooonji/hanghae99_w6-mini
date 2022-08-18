@@ -6,12 +6,13 @@ const port = 3000;
 
 const router = require("./routes");
 
-const corsOption = {
-  origin: ['http://getoldcar-c1194oq32-moduri.vercel.app/'],
-  credentials: true,
-}
+// const corsOption = {
+//   origin: true,
+//   credentials: true,
+// }
 
-app.use(cors(corsOption));
+// app.use(cors(corsOption));
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
